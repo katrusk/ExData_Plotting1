@@ -14,14 +14,14 @@
 library(dplyr)
 hpc <- tbl_df(read.table("./household_power_consumption.txt", sep = ";", header = TRUE))
 
-# convert Date and Time variables
+# convert Date variable
 library(lubridate)
 hpc$Date <- as.Date(hpc$Date, format = "%d/%m/%Y")
 
 # filter out data for 2007-02-01 and 2007-02-02
 power <- filter(hpc, Date == "2007-02-01" | Date == "2007-02-02")
 
-# create date+time variable, global as char
+# create date+time variable, Global_active_power as numeric
 date_time <- paste(power$Date, power$Time, sep = " ") %>% 
   strptime(format = "%Y-%m-%d %H:%M:%S")
 
